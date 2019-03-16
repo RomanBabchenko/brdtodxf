@@ -67,8 +67,6 @@ class Part(object):
         except PermissionError:
             print(Fore.RED + 'ФАЙЛ ЗАНЯТ ДРУГИМ ПРИЛОЖЕНИЕМ.' + Fore.RESET)
 
-file = Brdfile("LA-E911P.brd")
-
 def printtable():
     print(Fore.RESET)
     print('+' + '-' * 49 + '+')
@@ -83,6 +81,12 @@ def printtable():
 
 def main():
     global part, width, diameter
+    try:
+        file = Brdfile("file.brd")
+    except FileNotFoundError:
+        print('file.brd не найден в папке с программой.')
+        return
+
     print(Back.BLUE + Fore.WHITE + ' BRDTODXF BY SERVICE CORE :) ' + Fore.RESET + Back.RESET)
     while True:
         try:
