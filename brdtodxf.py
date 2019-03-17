@@ -1,7 +1,7 @@
 # coding: utf-8
 from dxfwrite import DXFEngine as dxf
 from colorama import init, Fore, Back
-
+import sys
 
 class Brdfile(object):
     def __init__(self, path):
@@ -82,9 +82,16 @@ def printtable():
 def main():
     global part, width, diameter
     try:
-        file = Brdfile("file.brd")
+        if sys.argv[1][-3:] != 'brd':
+            print('Неподдерживаемый формат файла.')
+            return
+        else:
+            file = Brdfile(sys.argv[1])
     except FileNotFoundError:
         print('file.brd не найден в папке с программой.')
+        return
+    except IndexError:
+        print('Файл не указан.')
         return
 
     print(Back.BLUE + Fore.WHITE + ' BRDTODXF BY SERVICE CORE :) ' + Fore.RESET + Back.RESET)
@@ -135,4 +142,3 @@ def main():
 
 init(convert=True)
 main()
-input()
