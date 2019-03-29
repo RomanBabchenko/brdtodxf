@@ -1,11 +1,15 @@
-import dxfwrite
-from dxfwrite import DXFEngine as dxf
-from random import random
+with open("A1286_k18.brd", "rb") as f:
+    buffer = bytearray(f.read())
 
-name="rectangle.dxf"
-drawing = dxf.drawing(name)
+newbuf = bytearray()
 
-polyline= dxf.polyline(linetype='DOT')
-polyline.add_vertices( [(0,20), (3,20), (6,23), (9,23)] )
-drawing.add(polyline)
-drawing.save()
+for x in buffer:
+    if not (chr(x) == '\r' or chr(x) == '\n' or chr(x) == 0):
+        newbuf.append((~(x>>6 & 3 | x<<2))%256)
+        # newbuf.append(255)
+    else:
+        newbuf.append(x)
+
+
+with open('var.brd', mode='wb') as f:
+    f.write(bytes(newbuf))
