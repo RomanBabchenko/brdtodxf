@@ -5,8 +5,7 @@ newbuf = bytearray()
 
 for x in buffer:
     if not (chr(x) == '\r' or chr(x) == '\n' or chr(x) == 0):
-        newbuf.append((~(x>>6 & 3 | x<<2))%256)
-        # newbuf.append(255)
+        newbuf.append((~(x >> 6 & 3 | x << 2)) % 256)
     else:
         newbuf.append(x)
 
